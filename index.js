@@ -1,3 +1,5 @@
+// coded by Diki Djatar
+
 const { Configuration, OpenAIApi } = require('openai');
 const express = require('express');
 const bodyParser = require('body-parser');
@@ -5,12 +7,12 @@ const cors = require('cors');
 require('dotenv').config();
 const path = require('path');
 
-const app = express();
+const app = express(); // express
 const server = require('http').createServer(app);
 const io = require('socket.io')(server);
 
 const configuration = new Configuration({
-  apiKey: process.env.API_KEY
+  apiKey: process.env.API_KEY //engambil apikey dari file .env
 });
 
 const openai = new OpenAIApi(configuration);
@@ -22,9 +24,9 @@ app.use(cors());
 io.on('connection', function(socket) {
   socket.on('prompt', function(data) {
     // console.log(data);
-    const textTranslate = `Terjemahkan "${data.message}" kedalam bahasa ${data.selectTo}`;
+    const textTranslate = `Terjemahkan "${data.message}" kedalam bahasa ${data.selectTo}`; // text terjemahan
     const completion = openai.createCompletion({
-      model: 'text-davinci-003',
+      model: 'text-davinci-003', // model
       prompt: textTranslate,
       temperature: 0.1,
       top_p: 1,
